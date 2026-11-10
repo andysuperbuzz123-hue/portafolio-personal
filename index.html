@@ -32,7 +32,6 @@
             overflow-x: hidden;
         }
 
-        /* Header / Navbar fija */
         header {
             position: fixed;
             top: 0;
@@ -69,7 +68,6 @@
 
         nav a:hover { color: var(--accent); }
 
-        /* Contenedor de Secciones */
         section {
             padding: 8rem 8% 5rem 8%;
             min-height: 100vh;
@@ -94,7 +92,6 @@
             color: var(--accent);
         }
 
-        /* Hero / Sobre Mí con diseño de 2 columnas */
         #sobre-mi {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -198,7 +195,6 @@
             font-size: 0.8rem;
         }
 
-        /* Grillas (Skills & Proyectos) */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -246,7 +242,6 @@
 
         .card a:hover { text-decoration: underline; }
 
-        /* Contacto */
         .contact-box {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -279,7 +274,6 @@
             color: var(--accent);
         }
 
-        /* Responsive */
         @media(max-width: 900px) {
             #sobre-mi {
                 grid-template-columns: 1fr;
@@ -304,12 +298,11 @@
         </nav>
     </header>
 
-    <!-- Sobre Mí -->
     <section id="sobre-mi">
         <div class="hero-text">
             <span class="hero-badge">Disponible para nuevos proyectos</span>
             <h1 id="user-nombre">Hola, soy <span>Cargando...</span></h1>
-            <p id="user-bio">Sincronizando información biográfica desde el servidor de desarrollo en Python...</p>
+            <p id="user-bio">Cargando biografía...</p>
             <div class="btn-group">
                 <a href="#proyectos" class="btn">Explorar Proyectos</a>
             </div>
@@ -325,23 +318,16 @@
         </div>
     </section>
 
-    <!-- Habilidades -->
     <section id="habilidades">
         <h2 class="section-title">Habilidades <span>Técnicas</span></h2>
-        <div class="grid-container" id="container-habilidades">
-            <div class="card"><p>Cargando habilidades...</p></div>
-        </div>
+        <div class="grid-container" id="container-habilidades"></div>
     </section>
 
-    <!-- Proyectos -->
     <section id="proyectos">
         <h2 class="section-title">Galería de <span>Proyectos</span></h2>
-        <div class="grid-container" id="container-proyectos">
-            <div class="card"><p>Cargando proyectos...</p></div>
-        </div>
+        <div class="grid-container" id="container-proyectos"></div>
     </section>
 
-    <!-- Contacto -->
     <section id="contacto">
         <h2 class="section-title">Contacto y <span>Redes</span></h2>
         <div class="contact-box">
@@ -351,53 +337,66 @@
                 </p>
             </div>
             <div class="social-links">
-                <a href="https://github.com" target="_blank" class="social-btn">GitHub</a>
+                <a href="https://github.com/andysuperbuzz123-hue" target="_blank" class="social-btn">GitHub</a>
                 <a href="https://linkedin.com" target="_blank" class="social-btn">LinkedIn</a>
             </div>
         </div>
     </section>
 
-    <!-- Script JavaScript para Inyección Dinámica -->
     <script>
-        async function cargarPortafolio() {
-            try {
-                const response = await fetch('/api/perfil');
-                const data = await response.json();
+        // Datos fijos para GitHub Pages
+        const data = {
+            estudiante: {
+                nombre: "Andy Altamirano",
+                bio: "Estudiante y desarrollador junior enfocado en herramientas web, automatización en Python y diseño de videojuegos 2D."
+            },
+            habilidades: [
+                "Python & Automatización",
+                "Desarrollo Frontend (HTML/CSS/JS)",
+                "Godot Engine & 2D Game Design",
+                "Control de versiones con Git"
+            ],
+            proyectos: [
+                {
+                    titulo: "Adaptador Curricular NEE",
+                    descripcion: "Aplicación web educativa desplegada en Vercel para optimizar la gestión escolar.",
+                    link: "https://github.com/andysuperbuzz123-hue"
+                },
+                {
+                    titulo: "Grafi Maxi",
+                    descripcion: "Plataforma y sistema para la gestión de servicios de impresión y diseño.",
+                    link: "https://github.com/andysuperbuzz123-hue"
+                }
+            ]
+        };
 
-                // Renderizar perfil
-                document.getElementById('user-nombre').innerHTML = `Hola, soy <span>${data.estudiante.nombre}</span>`;
-                document.getElementById('user-bio').textContent = data.estudiante.bio;
+        // Renderizar perfil
+        document.getElementById('user-nombre').innerHTML = `Hola, soy <span>${data.estudiante.nombre}</span>`;
+        document.getElementById('user-bio').textContent = data.estudiante.bio;
 
-                // Renderizar Habilidades
-                const containerSkills = document.getElementById('container-habilidades');
-                containerSkills.innerHTML = '';
-                data.habilidades.forEach(skill => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<h3>📌 ${skill}</h3><p>Competencia técnica aplicada en proyectos de desarrollo y lógica computacional.</p>`;
-                    containerSkills.appendChild(card);
-                });
+        // Renderizar Habilidades
+        const containerSkills = document.getElementById('container-habilidades');
+        containerSkills.innerHTML = '';
+        data.habilidades.forEach(skill => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `<h3>📌 ${skill}</h3><p>Competencia técnica aplicada en proyectos de desarrollo y lógica computacional.</p>`;
+            containerSkills.appendChild(card);
+        });
 
-                // Renderizar Proyectos
-                const containerProyectos = document.getElementById('container-proyectos');
-                containerProyectos.innerHTML = '';
-                data.proyectos.forEach(proj => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <h3>🚀 ${proj.titulo}</h3>
-                        <p>${proj.descripcion}</p>
-                        <a href="${proj.link}" target="_blank">Ver Repositorio &rarr;</a>
-                    `;
-                    containerProyectos.appendChild(card);
-                });
-
-            } catch (error) {
-                console.error("Error al sincronizar datos:", error);
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', cargarPortafolio);
+        // Renderizar Proyectos
+        const containerProyectos = document.getElementById('container-proyectos');
+        containerProyectos.innerHTML = '';
+        data.proyectos.forEach(proj => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>🚀 ${proj.titulo}</h3>
+                <p>${proj.descripcion}</p>
+                <a href="${proj.link}" target="_blank">Ver Repositorio &rarr;</a>
+            `;
+            containerProyectos.appendChild(card);
+        });
     </script>
 </body>
 </html>
