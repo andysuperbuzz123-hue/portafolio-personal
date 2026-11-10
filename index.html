@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Profesional | Desarrollador Junior</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #131d31;
+            --bg-card-hover: #1e293b;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border: #1e293b;
+            --border-hover: #38bdf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Navbar fija */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+        }
+
+        .logo { 
+            font-weight: 800; 
+            font-size: 1.25rem;
+            color: var(--accent); 
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a { 
+            color: var(--text-sub); 
+            text-decoration: none; 
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease; 
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        /* Contenedor de Secciones */
+        section {
+            padding: 8rem 8% 5rem 8%;
+            min-height: 100vh;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        /* Hero / Sobre Mí con diseño de 2 columnas */
+        #sobre-mi {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 { 
+            font-size: 3.5rem; 
+            line-height: 1.1;
+            margin-bottom: 1.2rem; 
+            font-weight: 800;
+        }
+
+        .hero-text h1 span { 
+            color: var(--accent); 
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p { 
+            font-size: 1.15rem; 
+            color: var(--text-sub); 
+            margin-bottom: 2rem; 
+            line-height: 1.7;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: var(--bg-main);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .hero-card-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .hero-card-visual::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .hero-card-visual h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .hero-card-visual ul {
+            list-style: none;
+            color: var(--text-sub);
+        }
+
+        .hero-card-visual li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-card-visual li::before {
+            content: '⚡';
+            font-size: 0.8rem;
+        }
+
+        /* Grillas (Skills & Proyectos) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.08);
+        }
+
+        .card h3 { 
+            color: var(--text-main); 
+            margin-bottom: 0.75rem; 
+            font-size: 1.25rem;
+        }
+
+        .card p { 
+            color: var(--text-sub); 
+            font-size: 0.95rem; 
+            margin-bottom: 1.5rem; 
+            line-height: 1.6;
+        }
+
+        .card a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card a:hover { text-decoration: underline; }
+
+        /* Contacto */
+        .contact-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-links { 
+            display: flex; 
+            gap: 1rem; 
+        }
+
+        .social-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover { 
+            border-color: var(--accent); 
+            background: var(--accent-glow);
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            #sobre-mi {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-top: 6rem;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            .contact-box { flex-direction: column; gap: 2rem; align-items: flex-start; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Portafolio.py</div>
+        <nav>
+            <a href="#sobre-mi">Inicio</a>
+            <a href="#habilidades">Habilidades</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Sobre Mí -->
+    <section id="sobre-mi">
+        <div class="hero-text">
+            <span class="hero-badge">Disponible para nuevos proyectos</span>
+            <h1 id="user-nombre">Hola, soy <span>Cargando...</span></h1>
+            <p id="user-bio">Sincronizando información biográfica desde el servidor de desarrollo en Python...</p>
+            <div class="btn-group">
+                <a href="#proyectos" class="btn">Explorar Proyectos</a>
+            </div>
+        </div>
+        <div class="hero-card-visual">
+            <h3>Stack Tecnológico Principal</h3>
+            <ul>
+                <li>Arquitectura Web Cliente-Servidor</li>
+                <li>Python y Scripts Automatizados</li>
+                <li>Interfaces Modernas UI/UX</li>
+                <li>Control de versiones con Git</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades">
+        <h2 class="section-title">Habilidades <span>Técnicas</span></h2>
+        <div class="grid-container" id="container-habilidades">
+            <div class="card"><p>Cargando habilidades...</p></div>
+        </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="proyectos">
+        <h2 class="section-title">Galería de <span>Proyectos</span></h2>
+        <div class="grid-container" id="container-proyectos">
+            <div class="card"><p>Cargando proyectos...</p></div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <h2 class="section-title">Contacto y <span>Redes</span></h2>
+        <div class="contact-box">
+            <div>
+                <p style="color: var(--text-sub); font-size: 1.1rem; max-width: 500px;">
+                    ¿Tienes alguna propuesta, consulta o quieres colaborar en un desarrollo técnico? Conéctate directamente a través de mis plataformas.
+                </p>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank" class="social-btn">GitHub</a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script JavaScript para Inyección Dinámica -->
+    <script>
+        async function cargarPortafolio() {
+            try {
+                const response = await fetch('/api/perfil');
+                const data = await response.json();
+
+                // Renderizar perfil
+                document.getElementById('user-nombre').innerHTML = `Hola, soy <span>${data.estudiante.nombre}</span>`;
+                document.getElementById('user-bio').textContent = data.estudiante.bio;
+
+                // Renderizar Habilidades
+                const containerSkills = document.getElementById('container-habilidades');
+                containerSkills.innerHTML = '';
+                data.habilidades.forEach(skill => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>📌 ${skill}</h3><p>Competencia técnica aplicada en proyectos de desarrollo y lógica computacional.</p>`;
+                    containerSkills.appendChild(card);
+                });
+
+                // Renderizar Proyectos
+                const containerProyectos = document.getElementById('container-proyectos');
+                containerProyectos.innerHTML = '';
+                data.proyectos.forEach(proj => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>🚀 ${proj.titulo}</h3>
+                        <p>${proj.descripcion}</p>
+                        <a href="${proj.link}" target="_blank">Ver Repositorio &rarr;</a>
+                    `;
+                    containerProyectos.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Error al sincronizar datos:", error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', cargarPortafolio);
+    </script>
+</body>
+</html>
